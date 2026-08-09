@@ -1,0 +1,39 @@
+name: Weekly FPL Report
+
+# Runs automatically every Friday at 08:00 UTC (adjust the cron line below
+# if you'd rather it run on a different day/time relative to deadlines),
+# and can also be triggered manually from the Actions tab any time.
+on:
+  schedule:
+    - cron: '0 8 * * 5'
+  workflow_dispatch:
+
+# Needed so the workflow is allowed to commit the new report back to the repo
+permissions:
+  contents: write
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests pulp
+
+      - name: Generate the report
+        run: python fpl_weekly_pipeline.py --output docs/index.html
+
+      - name: Commit and push the updated report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/index.html
+          git diff --staged --quiet && echo "No changes to commit" || git commit -m "Auto-update FPL report $(date -u +%Y-%m-%d)"
+          git push
