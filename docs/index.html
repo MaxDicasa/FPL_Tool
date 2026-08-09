@@ -164,6 +164,52 @@
     padding-top: 32px;
   }
 
+  .squad-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  @media (max-width: 720px) { .squad-grid { grid-template-columns: repeat(2, 1fr); } }
+  .squad-pos-col { background: var(--card); border-radius: 6px; padding: 14px; }
+  .squad-pos-heading {
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--pitch);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(11,46,31,0.1);
+  }
+  .squad-player {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    flex-wrap: wrap;
+    padding: 6px 0;
+    color: var(--text-dark);
+    font-size: 13px;
+  }
+  .squad-player-bench { opacity: 0.45; }
+  .squad-player-name { font-weight: 700; }
+  .cap-badge {
+    display: inline-block;
+    background: var(--lime);
+    color: var(--pitch-deep);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 1px 4px;
+    border-radius: 3px;
+    margin-left: 2px;
+  }
+  .squad-player-team { color: #5A6E64; font-size: 11px; }
+  .squad-player-cost { font-family: 'IBM Plex Mono', monospace; font-size: 11px; margin-left: auto; }
+  .bench-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.05em;
+    color: var(--flag);
+    width: 100%;
+  }
+  .squad-note { margin-top: 14px; font-size: 12px; color: var(--muted); }
+
   footer {
     margin-top: 64px;
     padding-top: 24px;
@@ -228,16 +274,16 @@
             </div>
             <div class="gauge">
         <div class="gauge-track">
-            <div class="gauge-fill" style="width:46.0%"></div>
+            <div class="gauge-fill" style="width:45.7%"></div>
             <div class="gauge-marker" style="left:28.6%"></div>
         </div>
-        <span class="gauge-label">16.1% owned</span>
+        <span class="gauge-label">16.0% owned</span>
     </div>
             <div class="stat-row">
                 <div class="stat"><span class="stat-val">256.9</span><span class="stat-label">ICT</span></div>
                 <div class="stat"><span class="stat-val">22.43</span><span class="stat-label">xGI</span></div>
                 <div class="stat"><span class="stat-val">181</span><span class="stat-label">PTS 25/26</span></div>
-                <div class="stat stat-score"><span class="stat-val">393</span><span class="stat-label">SCORE</span></div>
+                <div class="stat stat-score"><span class="stat-val">395</span><span class="stat-label">SCORE</span></div>
             </div>
             
         </div>
@@ -278,10 +324,10 @@
             </div>
             <div class="gauge">
         <div class="gauge-track">
-            <div class="gauge-fill" style="width:26.3%"></div>
+            <div class="gauge-fill" style="width:26.0%"></div>
             <div class="gauge-marker" style="left:28.6%"></div>
         </div>
-        <span class="gauge-label">9.2% owned</span>
+        <span class="gauge-label">9.1% owned</span>
     </div>
             <div class="stat-row">
                 <div class="stat"><span class="stat-val">218.1</span><span class="stat-label">ICT</span></div>
@@ -372,22 +418,22 @@
         <div class="card-main">
             <div class="card-top">
                 <span class="pos-chip pos-mid">MID</span>
-                <span class="player-name">Wirtz</span>
-                <span class="team-name">Liverpool</span>
-                <span class="cost">£7.5m</span>
+                <span class="player-name">Foden</span>
+                <span class="team-name">Man City</span>
+                <span class="cost">£7.0m</span>
             </div>
             <div class="gauge">
         <div class="gauge-track">
-            <div class="gauge-fill" style="width:36.0%"></div>
+            <div class="gauge-fill" style="width:20.0%"></div>
             <div class="gauge-marker" style="left:28.6%"></div>
         </div>
-        <span class="gauge-label">12.6% owned</span>
+        <span class="gauge-label">7.0% owned</span>
     </div>
             <div class="stat-row">
-                <div class="stat"><span class="stat-val">210.0</span><span class="stat-label">ICT</span></div>
-                <div class="stat"><span class="stat-val">11.96</span><span class="stat-label">xGI</span></div>
-                <div class="stat"><span class="stat-val">125</span><span class="stat-label">PTS 25/26</span></div>
-                <div class="stat stat-score"><span class="stat-val">322</span><span class="stat-label">SCORE</span></div>
+                <div class="stat"><span class="stat-val">201.9</span><span class="stat-label">ICT</span></div>
+                <div class="stat"><span class="stat-val">10.79</span><span class="stat-label">xGI</span></div>
+                <div class="stat"><span class="stat-val">131</span><span class="stat-label">PTS 25/26</span></div>
+                <div class="stat stat-score"><span class="stat-val">319</span><span class="stat-label">SCORE</span></div>
             </div>
             
         </div>
@@ -397,22 +443,22 @@
         <div class="card-main">
             <div class="card-top">
                 <span class="pos-chip pos-mid">MID</span>
-                <span class="player-name">Foden</span>
-                <span class="team-name">Man City</span>
-                <span class="cost">£7.0m</span>
+                <span class="player-name">Wirtz</span>
+                <span class="team-name">Liverpool</span>
+                <span class="cost">£7.5m</span>
             </div>
             <div class="gauge">
         <div class="gauge-track">
-            <div class="gauge-fill" style="width:20.9%"></div>
+            <div class="gauge-fill" style="width:38.0%"></div>
             <div class="gauge-marker" style="left:28.6%"></div>
         </div>
-        <span class="gauge-label">7.3% owned</span>
+        <span class="gauge-label">13.3% owned</span>
     </div>
             <div class="stat-row">
-                <div class="stat"><span class="stat-val">201.9</span><span class="stat-label">ICT</span></div>
-                <div class="stat"><span class="stat-val">10.79</span><span class="stat-label">xGI</span></div>
-                <div class="stat"><span class="stat-val">131</span><span class="stat-label">PTS 25/26</span></div>
-                <div class="stat stat-score"><span class="stat-val">319</span><span class="stat-label">SCORE</span></div>
+                <div class="stat"><span class="stat-val">210.0</span><span class="stat-label">ICT</span></div>
+                <div class="stat"><span class="stat-val">11.96</span><span class="stat-label">xGI</span></div>
+                <div class="stat"><span class="stat-val">125</span><span class="stat-label">PTS 25/26</span></div>
+                <div class="stat stat-score"><span class="stat-val">315</span><span class="stat-label">SCORE</span></div>
             </div>
             
         </div>
@@ -458,7 +504,7 @@
         <td class="num-cell">£6.0m</td>
         <td class="num-cell">179</td>
         <td class="num-cell highlight">29.8</td>
-        <td class="num-cell">23.5%</td>
+        <td class="num-cell">23.4%</td>
     </tr>
 <tr>
         <td class="rank-cell">4</td>
@@ -468,7 +514,7 @@
         <td class="num-cell">£5.0m</td>
         <td class="num-cell">148</td>
         <td class="num-cell highlight">29.6</td>
-        <td class="num-cell">8.3%</td>
+        <td class="num-cell">8.4%</td>
     </tr>
 <tr>
         <td class="rank-cell">5</td>
@@ -478,7 +524,7 @@
         <td class="num-cell">£6.0m</td>
         <td class="num-cell">175</td>
         <td class="num-cell highlight">29.2</td>
-        <td class="num-cell">10.7%</td>
+        <td class="num-cell">10.6%</td>
     </tr>
 <tr>
         <td class="rank-cell">6</td>
@@ -488,7 +534,7 @@
         <td class="num-cell">£4.5m</td>
         <td class="num-cell">130</td>
         <td class="num-cell highlight">28.9</td>
-        <td class="num-cell">17.0%</td>
+        <td class="num-cell">17.2%</td>
     </tr>
 <tr>
         <td class="rank-cell">7</td>
@@ -508,7 +554,7 @@
         <td class="num-cell">£6.0m</td>
         <td class="num-cell">170</td>
         <td class="num-cell highlight">28.3</td>
-        <td class="num-cell">9.9%</td>
+        <td class="num-cell">9.8%</td>
     </tr>
 <tr>
         <td class="rank-cell">9</td>
@@ -518,7 +564,7 @@
         <td class="num-cell">£6.5m</td>
         <td class="num-cell">180</td>
         <td class="num-cell highlight">27.7</td>
-        <td class="num-cell">12.0%</td>
+        <td class="num-cell">11.8%</td>
     </tr>
 <tr>
         <td class="rank-cell">10</td>
@@ -532,16 +578,6 @@
     </tr>
 <tr>
         <td class="rank-cell">11</td>
-        <td><span class="pos-chip pos-def small">DEF</span></td>
-        <td class="name-cell">Mukiele</td>
-        <td class="team-cell">Sunderland</td>
-        <td class="num-cell">£5.5m</td>
-        <td class="num-cell">151</td>
-        <td class="num-cell highlight">27.4</td>
-        <td class="num-cell">7.5%</td>
-    </tr>
-<tr>
-        <td class="rank-cell">12</td>
         <td><span class="pos-chip pos-gkp small">GKP</span></td>
         <td class="name-cell">Roefs</td>
         <td class="team-cell">Sunderland</td>
@@ -549,6 +585,16 @@
         <td class="num-cell">136</td>
         <td class="num-cell highlight">27.2</td>
         <td class="num-cell">5.0%</td>
+    </tr>
+<tr>
+        <td class="rank-cell">12</td>
+        <td><span class="pos-chip pos-gkp small">GKP</span></td>
+        <td class="name-cell">Leno</td>
+        <td class="team-cell">Fulham</td>
+        <td class="num-cell">£4.5m</td>
+        <td class="num-cell">122</td>
+        <td class="num-cell highlight">27.1</td>
+        <td class="num-cell">3.2%</td>
     </tr>
       </tbody>
     </table>
@@ -676,16 +722,16 @@
             </div>
             <div class="gauge">
         <div class="gauge-track">
-            <div class="gauge-fill" style="width:30.6%"></div>
+            <div class="gauge-fill" style="width:30.3%"></div>
             <div class="gauge-marker" style="left:28.6%"></div>
         </div>
-        <span class="gauge-label">10.7% owned</span>
+        <span class="gauge-label">10.6% owned</span>
     </div>
             <div class="stat-row">
                 <div class="stat"><span class="stat-val">168.6</span><span class="stat-label">ICT</span></div>
                 <div class="stat"><span class="stat-val">6.25</span><span class="stat-label">xGI</span></div>
                 <div class="stat"><span class="stat-val">175</span><span class="stat-label">PTS 25/26</span></div>
-                <div class="stat stat-score"><span class="stat-val">233</span><span class="stat-label">SCORE</span></div>
+                <div class="stat stat-score"><span class="stat-val">234</span><span class="stat-label">SCORE</span></div>
             </div>
             
         </div>
@@ -701,10 +747,10 @@
             </div>
             <div class="gauge">
         <div class="gauge-track">
-            <div class="gauge-fill" style="width:35.7%"></div>
+            <div class="gauge-fill" style="width:35.4%"></div>
             <div class="gauge-marker" style="left:28.6%"></div>
         </div>
-        <span class="gauge-label">12.5% owned</span>
+        <span class="gauge-label">12.4% owned</span>
     </div>
             <div class="stat-row">
                 <div class="stat"><span class="stat-val">175.6</span><span class="stat-label">ICT</span></div>
@@ -726,10 +772,10 @@
             </div>
             <div class="gauge">
         <div class="gauge-track">
-            <div class="gauge-fill" style="width:28.3%"></div>
+            <div class="gauge-fill" style="width:28.0%"></div>
             <div class="gauge-marker" style="left:28.6%"></div>
         </div>
-        <span class="gauge-label">9.9% owned</span>
+        <span class="gauge-label">9.8% owned</span>
     </div>
             <div class="stat-row">
                 <div class="stat"><span class="stat-val">165.7</span><span class="stat-label">ICT</span></div>
@@ -751,10 +797,10 @@
             </div>
             <div class="gauge">
         <div class="gauge-track">
-            <div class="gauge-fill" style="width:23.7%"></div>
+            <div class="gauge-fill" style="width:24.0%"></div>
             <div class="gauge-marker" style="left:28.6%"></div>
         </div>
-        <span class="gauge-label">8.3% owned</span>
+        <span class="gauge-label">8.4% owned</span>
     </div>
             <div class="stat-row">
                 <div class="stat"><span class="stat-val">152.0</span><span class="stat-label">ICT</span></div>
@@ -829,10 +875,10 @@
             </div>
             <div class="gauge">
         <div class="gauge-track">
-            <div class="gauge-fill" style="width:26.3%"></div>
+            <div class="gauge-fill" style="width:26.0%"></div>
             <div class="gauge-marker" style="left:28.6%"></div>
         </div>
-        <span class="gauge-label">9.2% owned</span>
+        <span class="gauge-label">9.1% owned</span>
     </div>
             <div class="stat-row">
                 <div class="stat"><span class="stat-val">218.1</span><span class="stat-label">ICT</span></div>
@@ -882,16 +928,16 @@
             </div>
             <div class="gauge">
         <div class="gauge-track">
-            <div class="gauge-fill" style="width:46.0%"></div>
+            <div class="gauge-fill" style="width:45.7%"></div>
             <div class="gauge-marker" style="left:28.6%"></div>
         </div>
-        <span class="gauge-label">16.1% owned</span>
+        <span class="gauge-label">16.0% owned</span>
     </div>
             <div class="stat-row">
                 <div class="stat"><span class="stat-val">256.9</span><span class="stat-label">ICT</span></div>
                 <div class="stat"><span class="stat-val">22.43</span><span class="stat-label">xGI</span></div>
                 <div class="stat"><span class="stat-val">181</span><span class="stat-label">PTS 25/26</span></div>
-                <div class="stat stat-score"><span class="stat-val">393</span><span class="stat-label">SCORE</span></div>
+                <div class="stat stat-score"><span class="stat-val">395</span><span class="stat-label">SCORE</span></div>
             </div>
             
         </div>
@@ -932,10 +978,10 @@
             </div>
             <div class="gauge">
         <div class="gauge-track">
-            <div class="gauge-fill" style="width:19.4%"></div>
+            <div class="gauge-fill" style="width:19.1%"></div>
             <div class="gauge-marker" style="left:28.6%"></div>
         </div>
-        <span class="gauge-label">6.8% owned</span>
+        <span class="gauge-label">6.7% owned</span>
     </div>
             <div class="stat-row">
                 <div class="stat"><span class="stat-val">150.8</span><span class="stat-label">ICT</span></div>
@@ -957,10 +1003,10 @@
             </div>
             <div class="gauge">
         <div class="gauge-track">
-            <div class="gauge-fill" style="width:7.7%"></div>
+            <div class="gauge-fill" style="width:7.4%"></div>
             <div class="gauge-marker" style="left:28.6%"></div>
         </div>
-        <span class="gauge-label">2.7% owned</span>
+        <span class="gauge-label">2.6% owned</span>
     </div>
             <div class="stat-row">
                 <div class="stat"><span class="stat-val">168.2</span><span class="stat-label">ICT</span></div>
@@ -973,7 +1019,115 @@
     </div></div>
         </div>
   </section>
-
+  
+  <section>
+    <div class="section-head">
+      <h2>Optimal Squad</h2>
+      <span class="desc">£100.0m of £100.0m · Balanced — best overall quality · Captain: B.Fernandes</span>
+    </div>
+    <div class="squad-grid">
+      <div class="squad-pos-col">
+            <h4 class="squad-pos-heading">GKP</h4>
+            <div class="squad-player squad-player-bench">
+        <span class="squad-player-name">Verbruggen</span>
+        <span class="squad-player-team">Brighton</span>
+        <span class="squad-player-cost">£4.5m</span>
+        <span class="bench-tag">BENCH</span>
+    </div>
+<div class="squad-player">
+        <span class="squad-player-name">Dubravka</span>
+        <span class="squad-player-team">Spurs</span>
+        <span class="squad-player-cost">£4.0m</span>
+        
+    </div>
+        </div><div class="squad-pos-col">
+            <h4 class="squad-pos-heading">DEF</h4>
+            <div class="squad-player">
+        <span class="squad-player-name">Virgil</span>
+        <span class="squad-player-team">Liverpool</span>
+        <span class="squad-player-cost">£6.5m</span>
+        
+    </div>
+<div class="squad-player">
+        <span class="squad-player-name">O'Reilly</span>
+        <span class="squad-player-team">Man City</span>
+        <span class="squad-player-cost">£6.5m</span>
+        
+    </div>
+<div class="squad-player">
+        <span class="squad-player-name">Pedro Porro</span>
+        <span class="squad-player-team">Spurs</span>
+        <span class="squad-player-cost">£5.5m</span>
+        
+    </div>
+<div class="squad-player squad-player-bench">
+        <span class="squad-player-name">Van Hecke</span>
+        <span class="squad-player-team">Spurs</span>
+        <span class="squad-player-cost">£5.0m</span>
+        <span class="bench-tag">BENCH</span>
+    </div>
+<div class="squad-player squad-player-bench">
+        <span class="squad-player-name">N.Williams</span>
+        <span class="squad-player-team">Nott'm Forest</span>
+        <span class="squad-player-cost">£5.0m</span>
+        <span class="bench-tag">BENCH</span>
+    </div>
+        </div><div class="squad-pos-col">
+            <h4 class="squad-pos-heading">MID</h4>
+            <div class="squad-player">
+        <span class="squad-player-name">B.Fernandes <span class="cap-badge">C</span></span>
+        <span class="squad-player-team">Man Utd</span>
+        <span class="squad-player-cost">£12.0m</span>
+        
+    </div>
+<div class="squad-player">
+        <span class="squad-player-name">Mbeumo</span>
+        <span class="squad-player-team">Man Utd</span>
+        <span class="squad-player-cost">£8.0m</span>
+        
+    </div>
+<div class="squad-player">
+        <span class="squad-player-name">Szoboszlai</span>
+        <span class="squad-player-team">Liverpool</span>
+        <span class="squad-player-cost">£7.0m</span>
+        
+    </div>
+<div class="squad-player">
+        <span class="squad-player-name">Enzo</span>
+        <span class="squad-player-team">Chelsea</span>
+        <span class="squad-player-cost">£7.0m</span>
+        
+    </div>
+<div class="squad-player squad-player-bench">
+        <span class="squad-player-name">Gakpo</span>
+        <span class="squad-player-team">Liverpool</span>
+        <span class="squad-player-cost">£7.0m</span>
+        <span class="bench-tag">BENCH</span>
+    </div>
+        </div><div class="squad-pos-col">
+            <h4 class="squad-pos-heading">FWD</h4>
+            <div class="squad-player">
+        <span class="squad-player-name">Thiago</span>
+        <span class="squad-player-team">Brentford</span>
+        <span class="squad-player-cost">£8.0m</span>
+        
+    </div>
+<div class="squad-player">
+        <span class="squad-player-name">Watkins</span>
+        <span class="squad-player-team">Aston Villa</span>
+        <span class="squad-player-cost">£8.0m</span>
+        
+    </div>
+<div class="squad-player">
+        <span class="squad-player-name">Calvert-Lewin</span>
+        <span class="squad-player-team">Leeds</span>
+        <span class="squad-player-cost">£6.0m</span>
+        
+    </div>
+        </div>
+    </div>
+    <p class="squad-note">Starting XI shown in full color, bench dimmed and marked BENCH. Captain (C) doubles points in real FPL scoring.</p>
+  </section>
   <footer>
     Data: official Fantasy Premier League API, pulled gameweek 1, pulled 2026-08-09.<br>
     Stats reflect last completed season (2025/26) as the pre-season baseline — will update as 2026/27 gameweeks are played.<br>
