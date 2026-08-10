@@ -29,7 +29,8 @@ from fpl_weekly_pipeline import load_players_from_bootstrap, current_gameweek
 from squad_builder import quality_score
 
 
-# Your current 15 - name must match the FPL "web_name" exactly (short display name)
+# Your current 15 - name must match the FPL "web_name" exactly (short display name).
+   # EXAMPLE SQUAD BELOW - replace with your own team before running this for real.
 CURRENT_SQUAD = [
     {"web_name": "Verbruggen", "bench": True},
     {"web_name": "Dubravka", "bench": False},
