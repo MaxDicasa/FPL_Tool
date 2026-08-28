@@ -1,11 +1,14 @@
 name: Weekly FPL Report
 
-# Runs automatically every Friday at 08:00 UTC (adjust the cron line below
-# if you'd rather it run on a different day/time relative to deadlines),
-# and can also be triggered manually from the Actions tab any time.
+# Runs automatically every Wednesday at 08:00 UTC - chosen because Premier
+# League fixtures typically run Friday through Monday (with occasional
+# midweek games), so Wednesday sits safely after the previous weekend's
+# results and prices are finalized, with room before the next deadline.
+# Adjust the cron line below if your league's schedule shifts, and you can
+# always trigger a run manually from the Actions tab any time.
 on:
   schedule:
-    - cron: '0 8 * * 5'
+    - cron: '0 8 * * 3'
   workflow_dispatch:
 
 # Needed so the workflow is allowed to commit the new report back to the repo
