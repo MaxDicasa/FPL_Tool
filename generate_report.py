@@ -1,16 +1,15 @@
 """
 Generates the styled HTML FPL Differential Picks report from real bootstrap
-data. Run generate_report_data.py first (or reuse report_data.json).
+data.
 """
 
 import json
 import os
 
+POSITION_NAMES = {1: "GKP", 2: "DEF", 3: "MID", 4: "FWD"}
+
 
 def ownership_gauge_html(ownership_pct, max_scale=35):
-    """Broadcast-style gauge bar: fill shows ownership %, marker shows the
-    10% differential threshold. Lower fill relative to the marker = better
-    differential (fewer managers have this player)."""
     fill_pct = min(100, (ownership_pct / max_scale) * 100)
     marker_pct = min(100, (10 / max_scale) * 100)
     return f'''<div class="gauge">
@@ -22,7 +21,7 @@ def ownership_gauge_html(ownership_pct, max_scale=35):
     </div>'''
 
 
-def player_card_html(p, rank):
+def player_card_html(p, rank, pts_label="PTS"):
     pos_class = p["position"].lower()
     news_flag = f'<span class="news-flag">{p["news"]}</span>' if p.get("news") else ""
     return f'''<div class="player-card">
@@ -38,7 +37,7 @@ def player_card_html(p, rank):
             <div class="stat-row">
                 <div class="stat"><span class="stat-val">{p["ict_index"]:.1f}</span><span class="stat-label">ICT</span></div>
                 <div class="stat"><span class="stat-val">{p["expected_goal_involvements"]:.2f}</span><span class="stat-label">xGI</span></div>
-                <div class="stat"><span class="stat-val">{p["total_points"]}</span><span class="stat-label">PTS 25/26</span></div>
+                <div class="stat"><span class="stat-val">{p["total_points"]}</span><span class="stat-label">{pts_label}</span></div>
                 <div class="stat stat-score"><span class="stat-val">{p["differential_score"]:.0f}</span><span class="stat-label">SCORE</span></div>
             </div>
             {news_flag}
@@ -116,8 +115,14 @@ def build_report(data_path: str, output_path: str):
     with open(data_path, encoding="utf-8") as f:
         data = json.load(f)
 
+    # Dynamic points label: while preseason (no gameweeks completed yet),
+    # total_points is really last season's carryover total, so label it
+    # honestly. Once the season is underway, it's genuine current points -
+    # no hardcoded year needed, so this never goes stale again.
+    pts_label = "PTS (LAST SEASON)" if data.get("preseason", False) else "PTS"
+
     top_diff_cards = "\n".join(
-        player_card_html(p, i + 1) for i, p in enumerate(data["top_differentials"][:9])
+        player_card_html(p, i + 1, pts_label) for i, p in enumerate(data["top_differentials"][:9])
     )
     value_rows = "\n".join(
         value_row_html(p, i + 1) for i, p in enumerate(data["top_value"][:12])
@@ -125,7 +130,7 @@ def build_report(data_path: str, output_path: str):
 
     position_sections = ""
     for pos_name, players in data["by_position"].items():
-        cards = "\n".join(player_card_html(p, i + 1) for i, p in enumerate(players[:4]))
+        cards = "\n".join(player_card_html(p, i + 1, pts_label) for i, p in enumerate(players[:4]))
         position_sections += f'''
         <div class="position-block">
             <h3 class="position-heading">{pos_name}</h3>
@@ -136,7 +141,7 @@ def build_report(data_path: str, output_path: str):
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>FPL Differential Picks — GW1</title>
+<title>FPL Differential Picks</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
@@ -178,17 +183,6 @@ def build_report(data_path: str, output_path: str):
   }}
   h1 span {{ color: var(--lime); }}
   .subhead {{ color: var(--muted); font-size: 16px; max-width: 480px; margin: 0 auto; }}
-  .deadline {{
-    display: inline-block;
-    margin-top: 28px;
-    font-family: 'IBM Plex Mono', monospace;
-    background: rgba(212,255,63,0.1);
-    border: 1px solid rgba(212,255,63,0.3);
-    color: var(--lime);
-    padding: 8px 18px;
-    border-radius: 4px;
-    font-size: 13px;
-  }}
 
   section {{ padding: 56px 0 0; }}
   .section-head {{ display: flex; align-items: baseline; gap: 14px; margin-bottom: 24px; }}
@@ -358,10 +352,9 @@ def build_report(data_path: str, output_path: str):
 <body>
 <header>
   <div class="wrap">
-    <div class="eyebrow">Fantasy Premier League — Pre-Season Report</div>
-    <h1>Differentials <span>&amp;</span> Value<br>Before Gameweek 1</h1>
+    <div class="eyebrow">Fantasy Premier League — Live Report</div>
+    <h1>Differentials <span>&amp;</span> Value</h1>
     <p class="subhead">{data["eligible_count"]} qualifying players scored on underlying output (ICT, expected goal involvements) weighted against ownership — the picks other managers aren't making yet.</p>
-    <div class="deadline">GW1 DEADLINE · AUG 21, 2026 · 17:30 UTC</div>
   </div>
 </header>
 
@@ -400,8 +393,7 @@ def build_report(data_path: str, output_path: str):
   </section>
   {squad_section_html(data)}
   <footer>
-    Data: official Fantasy Premier League API, pulled {data.get("pulled_note", "pre-season 2026/27")}.<br>
-    Stats reflect last completed season (2025/26) as the pre-season baseline — will update as 2026/27 gameweeks are played.<br>
+    Data: official Fantasy Premier League API, pulled {data.get("pulled_note", "")}.<br>
     Not betting advice. Build your own squad, this is one input among many.
   </footer>
 </div>
@@ -414,7 +406,3 @@ def build_report(data_path: str, output_path: str):
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(html)
     print(f"Report written to {output_path}")
-
-
-if __name__ == "__main__":
-    build_report("/home/claude/fpl_tool/report_data.json", "/home/claude/fpl_tool/fpl_report.html")
