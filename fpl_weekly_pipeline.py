@@ -2,7 +2,7 @@
 FPL WEEKLY PIPELINE - run this one script to go from raw data to a finished report.
 
 Usage (run locally where you have internet access):
-    pip install requests
+    pip install requests pulp
     python fpl_weekly_pipeline.py
 
 This does everything in one command:
@@ -73,13 +73,44 @@ def current_gameweek(bootstrap):
     return 1
 
 
-def run_pipeline(n_fixture_games=5, min_minutes=450, squad_mode="balanced", output_path=None):
+def completed_gameweeks(bootstrap):
+    """Counts how many gameweeks have actually finished so far this season -
+    used to scale the minutes-played eligibility threshold. Early season,
+    nobody can have played much, so a fixed 450-minute bar (calibrated for
+    a near-full season of data) would filter out every single player."""
+    return sum(1 for event in bootstrap["events"] if event.get("finished"))
+
+
+def dynamic_min_minutes(bootstrap, target_starter_fraction=0.5):
+    """
+    Scales the minimum-minutes eligibility bar to how far into the season
+    we are, so the filter means the same thing (roughly: 'this player has
+    been a consistent starter') whether it's gameweek 2 or gameweek 30.
+
+    target_starter_fraction=0.5 means: a player needs to have played at
+    least half of all available minutes so far to count as a real starter.
+    Floors at 45 minutes (at least one appearance) so gameweek 1 doesn't
+    require 0 minutes and let in every unused substitute.
+    """
+    gws_done = completed_gameweeks(bootstrap)
+    if gws_done == 0:
+        return 45  # nobody's played yet - let anyone with at least a substitute appearance in
+    max_possible_minutes = gws_done * 90
+    return max(45, int(max_possible_minutes * target_starter_fraction))
+
+
+def run_pipeline(n_fixture_games=5, min_minutes=None, squad_mode="balanced", output_path=None):
     bootstrap, fixtures = download_data()
 
     players = load_players_from_bootstrap(bootstrap)
     team_names = {t["id"]: t["name"] for t in bootstrap["teams"]}
     team_ids = list(team_names.keys())
     next_gw = current_gameweek(bootstrap)
+
+    if min_minutes is None:
+        min_minutes = dynamic_min_minutes(bootstrap)
+        print(f"Using dynamic minutes threshold: {min_minutes} "
+              f"({completed_gameweeks(bootstrap)} gameweek(s) completed so far)")
 
     print(f"\nComputing fixture difficulty (next {n_fixture_games} GWs from GW{next_gw})...")
     diff_map = build_team_difficulty_map(fixtures, team_ids, n_games=n_fixture_games, from_event=next_gw)
@@ -91,6 +122,13 @@ def run_pipeline(n_fixture_games=5, min_minutes=450, squad_mode="balanced", outp
     print("Scoring players (value + fixture-adjusted differential)...")
     by_value, by_differential = build_rankings(players, min_minutes=min_minutes, team_difficulty=team_difficulty)
     print(f"  {len(by_value)} players eligible ({min_minutes}+ minutes, available status)")
+
+    if not by_differential:
+        print("  WARNING: no players met the eligibility bar even after the dynamic adjustment - "
+              "this can happen very early in preseason. Falling back to a minimal 1-minute threshold "
+              "so the report can still be generated.")
+        by_value, by_differential = build_rankings(players, min_minutes=1, team_difficulty=team_difficulty)
+        min_minutes = 1
 
     print(f"Building optimal squad ({squad_mode} mode)...")
     squad, squad_cost, squad_score = build_squad(by_value, mode=squad_mode, min_minutes=min_minutes)
@@ -128,8 +166,12 @@ def run_pipeline(n_fixture_games=5, min_minutes=450, squad_mode="balanced", outp
     build_report(data_path, final_output_path)
 
     print(f"\nDone. Report saved to {final_output_path}")
-    print(f"Top differential: {by_differential[0]['web_name']} ({by_differential[0]['differential_score']:.0f}, "
-          f"{by_differential[0]['selected_by_percent']}% owned, fixture multiplier {by_differential[0]['fixture_multiplier']})")
+    if by_differential:
+        top = by_differential[0]
+        print(f"Top differential: {top['web_name']} ({top['differential_score']:.0f}, "
+              f"{top['selected_by_percent']}% owned, fixture multiplier {top['fixture_multiplier']})")
+    else:
+        print("No differential picks available this run (very early preseason with no player data yet).")
 
     return final_output_path
 
@@ -141,5 +183,7 @@ if __name__ == "__main__":
                               "Use a fixed path like docs/index.html for automated/hosted runs.")
     parser.add_argument("--squad-mode", type=str, default="balanced", choices=["balanced", "differential"],
                          help="Squad optimization mode (default: balanced)")
+    parser.add_argument("--min-minutes", type=int, default=None,
+                         help="Override the dynamic minutes-played eligibility threshold with a fixed value.")
     args = parser.parse_args()
-    run_pipeline(output_path=args.output, squad_mode=args.squad_mode)
+    run_pipeline(output_path=args.output, squad_mode=args.squad_mode, min_minutes=args.min_minutes)
