@@ -154,6 +154,7 @@ def run_pipeline(n_fixture_games=5, min_minutes=None, squad_mode="balanced", out
         "starting_xi": starting_xi,
         "bench": bench,
         "captain_name": captain["web_name"] if captain else None,
+        "preseason": completed_gameweeks(bootstrap) == 0,
         "pulled_note": f"gameweek {next_gw}, pulled {datetime.now().strftime('%Y-%m-%d')}",
     }
 
