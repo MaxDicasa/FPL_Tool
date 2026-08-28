@@ -45,6 +45,32 @@
   h1 span { color: var(--lime); }
   .subhead { color: var(--muted); font-size: 16px; max-width: 480px; margin: 0 auto; }
 
+  .legend-section { padding: 32px 0 0; }
+  .legend-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  @media (max-width: 720px) { .legend-grid { grid-template-columns: 1fr 1fr; } }
+  .legend-item {
+    background: rgba(245,247,242,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    padding: 14px;
+  }
+  .legend-label {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--lime);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .legend-item p {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+  .legend-item em { color: var(--card); font-style: normal; }
+
   section { padding: 56px 0 0; }
   .section-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 24px; }
   .section-head h2 {
@@ -219,6 +245,29 @@
   </div>
 </header>
 
+
+  <section class="legend-section">
+    <div class="wrap">
+      <div class="legend-grid">
+        <div class="legend-item">
+          <span class="legend-label">ICT</span>
+          <p>FPL's own Influence/Creativity/Threat index — their official blend of how much a player affects match outcomes, creates chances, and threatens goal.</p>
+        </div>
+        <div class="legend-item">
+          <span class="legend-label">xGI</span>
+          <p>Expected Goal Involvements (expected goals + expected assists). Measures chance <em>quality</em>, not just results — the more predictive of the two stats.</p>
+        </div>
+        <div class="legend-item">
+          <span class="legend-label">Ownership bar</span>
+          <p>Scaled 0-35% (not 0-100%) so low-owned players are easy to compare. The red tick marks 10% — our cutoff for "still a real differential."</p>
+        </div>
+        <div class="legend-item">
+          <span class="legend-label">Score</span>
+          <p>Our own ranking: ICT + xGI, discounted the more owned a player gets, then adjusted up or down by their team's next 5 fixtures.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 <div class="wrap">
   <section>
     <div class="section-head">
