@@ -1,9 +1,8 @@
 """
 FPL Squad Builder
 -------------------
-Builds a valid, budget-legal 15-man squad using integer linear programming
-(via PuLP) rather than a greedy heuristic - this guarantees the best possible
-squad under the real constraints, not just a "good enough" one.
+Builds a valid, budget-legal 15-man squad using integer linear programming (using PuLP).
+this guarantees the best possible squad under the real constraints, not just a "good enough" one.
 
 Real FPL squad rules enforced:
   - Exactly 15 players: 2 GKP, 5 DEF, 5 MID, 3 FWD
@@ -11,15 +10,10 @@ Real FPL squad rules enforced:
   - Max 3 players from any single real-life team
 
 Two objective modes:
-  - "balanced":     maximize pure underlying quality (ICT + xGI, fixture-
-                     adjusted), ignoring ownership - the strongest possible
-                     squad regardless of how popular the picks are
-  - "differential": maximize the same quality score but weighted down for
-                     high-ownership players - a more contrarian squad, higher
-                     variance, better for climbing mini-leagues from behind
+  - "balanced":     maximize pure underlying quality (ICT + xGI, fixture adjusted), ignoring ownership
+  - "differential": maximize the same quality score but weighted down for high-ownership players
 
-After building the 15, also suggests a starting XI + captain: the highest-
-scoring valid 11 (1 GKP, 3-5 DEF, 2-5 MID, 1-3 FWD) from within the squad.
+After building the 15, also suggests a starting XI + captain: the highest scoring valid 11 (1 GKP, 3-5 DEF, 2-5 MID, 1-3 FWD) from within the squad.
 """
 
 import pulp
@@ -37,13 +31,7 @@ def quality_score(p, fixture_multiplier=1.0):
 
 
 def build_squad(players, mode="balanced", budget=BUDGET, min_minutes=450):
-    """
-    players: list of player dicts, each already carrying 'fixture_multiplier'
-             and 'differential_score' from build_rankings().
-    mode: "balanced" or "differential"
-    Returns (squad_list, total_cost, total_score) or (None, None, None) if
-    no feasible squad exists under the constraints.
-    """
+ 
     eligible = [p for p in players if p["minutes"] >= min_minutes and p["status"] == "a"]
 
     prob = pulp.LpProblem("fpl_squad", pulp.LpMaximize)
@@ -83,11 +71,9 @@ def build_squad(players, mode="balanced", budget=BUDGET, min_minutes=450):
 
 
 def pick_starting_xi(squad, mode="balanced"):
-    """
-    From the 15-man squad, picks the highest-scoring valid starting XI:
-    1 GKP, 3-5 DEF, 2-5 MID, 1-3 FWD, totaling 11. Also flags the captain
-    (highest scorer in the XI - doubles their points in real FPL).
-    """
+
+    #From the 15 man squad, picks the highest-scoring valid starting XI: 1 GKP, 3-5 DEF, 2-5 MID, 1-3 FWD, totaling 11. Also flags the captain.
+ 
     prob = pulp.LpProblem("starting_xi", pulp.LpMaximize)
     x = {i: pulp.LpVariable(f"y_{i}", cat="Binary") for i in range(len(squad))}
 
