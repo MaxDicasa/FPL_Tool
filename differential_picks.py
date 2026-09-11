@@ -28,7 +28,7 @@ def value_score(player):
 
 def differential_score(player):
     
-    Combines underlying quality (ICT index, expected goal involvements with LOW ownership into a single score. Higher score means good stats that most managers are sleeping on.
+    # Combines underlying quality (ICT index, expected goal involvements with LOW ownership into a single score. Higher score means good stats that most managers are sleeping on.
 
     
     ownership = player["selected_by_percent"]
