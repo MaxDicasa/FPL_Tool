@@ -44,12 +44,12 @@ def build_team_difficulty_map(fixtures, team_ids, n_games=5, from_event=1):
 
 
 def difficulty_multiplier(avg_difficulty: float) -> float:
-    """
-    Converts average FDR (1=easiest, 5=hardest) into a score multiplier.
-    FDR 2 (easy run) -> multiplier > 1 (boosts differential score)
-    FDR 3 (neutral)   -> multiplier = 1.0 (no adjustment)
-    FDR 4+ (hard run)  -> multiplier < 1 (penalizes differential score)
-    """
+  
+    # Converts average FDR (1=easiest, 5=hardest) into a score multiplier.
+    # FDR 2 (easy run) -> multiplier > 1 (boosts differential score)
+    # FDR 3 (neutral)   -> multiplier = 1.0 (no adjustment)
+    # FDR 4+ (hard run)  -> multiplier < 1 (penalizes differential score)
+  
     # linear scale centered on neutral=3: each point of difficulty above/below
     # 3 shifts the multiplier by 15%, capped so a brutal run doesn't zero a player out
     return max(0.5, min(1.5, 1.0 + (3.0 - avg_difficulty) * 0.15))
