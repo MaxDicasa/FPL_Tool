@@ -1,12 +1,9 @@
-"""
-Computes fixture difficulty for each team over their next N gameweeks.
-FPL's own Fixture Difficulty Rating (FDR) is 1 (easiest) to 5 (hardest),
-set by FPL's own team, from the perspective of the team being difficulty-rated.
 
-A team's "next N" difficulty is the average of team_h_difficulty (when they're
-home) or team_a_difficulty (when they're away) across their next N scheduled,
-unfinished fixtures.
-"""
+#Computes fixture difficulty for each team over their next N gameweeks.
+#FPL's own Fixture Difficulty Rating (FDR) is 1 (easiest) to 5 (hardest), set by FPL's own team, from the perspective of the team being difficulty-rated.
+
+# A team's "next N" difficulty is the average of team_h_difficulty (when they're home) or team_a_difficulty (when they're away) across their next N scheduled, unfinished fixtures.
+
 
 import json
 from collections import defaultdict
