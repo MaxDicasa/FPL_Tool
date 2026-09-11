@@ -1,11 +1,9 @@
 """
 Transfer Suggester (standalone version)
 ------------------------------------------
-Self-contained: only needs `pip install requests`. No other project files
-required, so this one script can be copied to any machine and just work.
+Self-contained: only needs `pip install requests`. No other project files required, so this one script can be copied to any machine and work.
 
-Given your actual current squad, finds the best single free transfer, and
-flags whether a second, point-costing transfer is worth taking.
+Given your actual current squad, finds the best single free transfer, and flags whether a second, point-costing transfer is worth taking.
 
 Rules modeled:
   - 1 free transfer per week (any additional transfer costs -4 points)
