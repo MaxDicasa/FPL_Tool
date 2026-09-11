@@ -74,24 +74,14 @@ def current_gameweek(bootstrap):
 
 
 def completed_gameweeks(bootstrap):
-    """Counts how many gameweeks have actually finished so far this season -
-    used to scale the minutes-played eligibility threshold. Early season,
-    nobody can have played much, so a fixed 450-minute bar (calibrated for
-    a near-full season of data) would filter out every single player."""
+    
+    # Counts how many gameweeks have actually finished so far this season.
+   
     return sum(1 for event in bootstrap["events"] if event.get("finished"))
 
 
 def dynamic_min_minutes(bootstrap, target_starter_fraction=0.5):
-    """
-    Scales the minimum-minutes eligibility bar to how far into the season
-    we are, so the filter means the same thing (roughly: 'this player has
-    been a consistent starter') whether it's gameweek 2 or gameweek 30.
 
-    target_starter_fraction=0.5 means: a player needs to have played at
-    least half of all available minutes so far to count as a real starter.
-    Floors at 45 minutes (at least one appearance) so gameweek 1 doesn't
-    require 0 minutes and let in every unused substitute.
-    """
     gws_done = completed_gameweeks(bootstrap)
     if gws_done == 0:
         return 45  # nobody's played yet - let anyone with at least a substitute appearance in
