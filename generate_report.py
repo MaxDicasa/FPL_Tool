@@ -95,7 +95,7 @@ def squad_section_html(data):
             {rows}
         </div>'''
 
-    mode_label = "Balanced — best overall quality" if data.get("squad_mode") == "balanced" else "Differential — contrarian, low ownership"
+    mode_label = "Balanced, best overall quality" if data.get("squad_mode") == "balanced" else "Differential — contrarian, low ownership"
 
     return f'''
   <section>
