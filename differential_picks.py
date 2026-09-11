@@ -1,24 +1,11 @@
-"""
-FPL Differential & Value Picks Model
---------------------------------------
-Pre-season/early-season tool: scores every eligible player on two things
-FPL managers actually care about:
 
-  1. VALUE SCORE   - points delivered per unit of squad cost (who's cheap
-                      relative to output)
-  2. DIFFERENTIAL SCORE - strong underlying numbers (ICT index, expected
-                      goal involvements) combined with LOW ownership - i.e.
-                      players most other managers don't have, who look
-                      statistically live to outperform their price
 
-This isn't trying to find a "market inefficiency" the way the betting models
-were - FPL ownership is driven by name recognition and gut feel as much as
-data, so a player with strong underlying numbers and low ownership is a
-completely legitimate, well-documented edge in the FPL community. The bar
-here is "better than the average manager's gut feel," not "beat a
-professional pricing desk."
+ # 1. VALUE SCORE   - points delivered per unit of squad cost (who's cheap relative to output)
+ # 2. DIFFERENTIAL SCORE - strong underlying numbers (ICT index, expected goal involvements) combined with LOW ownership. For example, players most other managers don't have, who look statistically live to outperform their price
 
-Position codes: 1=GKP, 2=DEF, 3=MID, 4=FWD
+
+
+ # Position codes: 1=GKP, 2=DEF, 3=MID, 4=FWD
 """
 
 import json
