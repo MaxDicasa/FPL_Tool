@@ -1,7 +1,6 @@
-"""
-Generates the styled HTML FPL Differential Picks report from real bootstrap
-data.
-"""
+
+# Generates the styled HTML FPL Differential Picks report from real bootstrap data.
+
 
 import json
 import os
