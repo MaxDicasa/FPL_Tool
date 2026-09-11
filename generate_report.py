@@ -117,15 +117,15 @@ def legend_html():
       <div class="legend-grid">
         <div class="legend-item">
           <span class="legend-label">ICT</span>
-          <p>FPL's own Influence/Creativity/Threat index — their official blend of how much a player affects match outcomes, creates chances, and threatens goal.</p>
+          <p>FPL's own Influence/Creativity/Threat index, their official blend of how much a player affects match outcomes, creates chances, and threatens goal.</p>
         </div>
         <div class="legend-item">
           <span class="legend-label">xGI</span>
-          <p>Expected Goal Involvements (expected goals + expected assists). Measures chance <em>quality</em>, not just results — the more predictive of the two stats.</p>
+          <p>Expected Goal Involvements (expected goals + expected assists). Measures chance <em>quality</em>, not just results, the more predictive of the two stats.</p>
         </div>
         <div class="legend-item">
           <span class="legend-label">Ownership bar</span>
-          <p>Scaled 0-35% (not 0-100%) so low-owned players are easy to compare. The red tick marks 10% — our cutoff for "still a real differential."</p>
+          <p>Scaled 0-35% (not 0-100%) so low-owned players are easy to compare. The red tick marks 10%, which is our cutoff for "still a real differential."</p>
         </div>
         <div class="legend-item">
           <span class="legend-label">Score</span>
@@ -439,7 +439,7 @@ def build_report(data_path: str, output_path: str):
   <section>
     <div class="section-head">
       <h2>By Position</h2>
-      <span class="desc">Top 4 differentials in each slot — build your squad</span>
+      <span class="desc">Top 4 differentials in each slot, build your squad</span>
     </div>
     {position_sections}
   </section>
