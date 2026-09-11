@@ -6,7 +6,7 @@
 
 
  # Position codes: 1=GKP, 2=DEF, 3=MID, 4=FWD
-"""
+
 
 import json
 
@@ -27,15 +27,10 @@ def value_score(player):
 
 
 def differential_score(player):
-    """
-    Combines underlying quality (ICT index, expected goal involvements)
-    with LOW ownership into a single score - higher score means
-    'good stats that most managers are sleeping on'.
+    
+    Combines underlying quality (ICT index, expected goal involvements with LOW ownership into a single score. Higher score means good stats that most managers are sleeping on.
 
-    Ownership penalty kicks in above 10% - below that, ownership barely
-    matters; above it, heavily-owned players aren't differentials by
-    definition even if they're good.
-    """
+    
     ownership = player["selected_by_percent"]
     ict = player["ict_index"]
     xgi = player["expected_goal_involvements"]
@@ -52,12 +47,7 @@ def differential_score(player):
 
 
 def build_rankings(players, min_minutes=450, team_difficulty=None):
-    """
-    team_difficulty: optional {team_name: multiplier} dict from fixture_difficulty.py.
-    When provided, differential_score is adjusted by the player's team's
-    upcoming fixture run - easier fixtures boost the score, harder fixtures
-    reduce it.
-    """
+ 
     eligible = [p for p in players if p["minutes"] >= min_minutes and p["status"] == "a"]
     for p in eligible:
         p["value_score"] = value_score(p)
